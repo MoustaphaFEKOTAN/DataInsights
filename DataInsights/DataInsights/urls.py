@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_views.home, name='home'),
     path('statistic/', statistic_views.statistic, name='statistic'),
-    path('analyze/', analyze_views.analyze, name='analyze'),
+    path('analyze/', analyze_views.analyze_file, name='analyze'),
 ]
 
 

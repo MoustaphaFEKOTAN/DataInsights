@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from .forms import UploadFileForm
+
 def home(request):
-    return render(request, 'home.html')
+    form = UploadFileForm()
+    return render(request, 'home.html', {'form': form})

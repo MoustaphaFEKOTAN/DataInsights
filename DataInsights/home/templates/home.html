@@ -22,18 +22,19 @@
             <div class="col-md-6">
                 <p>
                   DataInsights est une plateforme innovante dédiée à l'analyse et à la visualisation de données. Conçue pour simplifier le traitement de données complexes, elle permet aux utilisateurs, qu'ils soient débutants ou professionnels, de transformer rapidement leurs fichiers en informations exploitables. Notre objectif est de rendre l'analyse de données accessible à tous, tout en offrant des outils puissants et fiables.
-
+                </p>
+                <p>
                   Grâce à DataInsights, vous pouvez importer vos fichiers CSV, Excel, ou autres formats de données et obtenir instantanément des visualisations interactives et des statistiques détaillées. La plateforme est pensée pour être intuitive et conviviale : chaque fonctionnalité est conçue pour guider l'utilisateur pas à pas, sans nécessiter de connaissances avancées en programmation ou en science des données.
-                  
+                </p>
+                <p>
                   Notre solution intègre également des algorithmes d'analyse de données performants, capables d'identifier des tendances, des corrélations et des anomalies dans vos ensembles de données. Que vous travailliez sur des projets financiers, scientifiques ou marketing, DataInsights vous aide à prendre des décisions éclairées basées sur vos propres données.
-                  
-                  La sécurité et la confidentialité des données sont au cœur de notre démarche. Chaque fichier importé est traité de manière sécurisée et n’est jamais partagé sans consentement. De plus, la plateforme est entièrement responsive, vous permettant d’accéder à vos analyses depuis un ordinateur, une tablette ou un smartphone, où que vous soyez.
-                  
+                </p>
+                <p> 
                   Avec DataInsights, transformez vos données en insights précieux et gagnez en efficacité, en compréhension et en performance. Notre mission est de démocratiser l'analyse de données et d’offrir à chaque utilisateur les moyens de mieux comprendre son environnement et ses activités grâce à des informations claires, précises et visuelles.
                 </p>
             </div>
             <div class="col-md-6 text-center">
-                <img src="{% static 'img/about-data.jpg' %}" alt="Analyse de données" class="img-fluid rounded">
+                <img src="{% static 'img/data-science-and-Analytics.jpg' %}" alt="Analyse de données" class="img-fluid rounded">
             </div>
         </div>
     </div>
@@ -69,11 +70,12 @@
         <h2 class="text-center mb-4">Importer vos données</h2>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form }}
-                    <button type="submit" class="btn btn-primary w-100 mt-3">Analyser</button>
-                </form>
+              <form method="post" enctype="multipart/form-data" action="{% url 'analyze' %}">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-primary w-100 mt-3">Analyser</button>
+            </form>
+            
             </div>
         </div>
     </div>
