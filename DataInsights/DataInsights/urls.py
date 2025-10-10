@@ -19,6 +19,8 @@ from django.urls import path
 from analyze import views as analyze_views
 from home import views as home_views
 from statistic import views as statistic_views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +29,7 @@ urlpatterns = [
     path('analyze/', analyze_views.analyze_file, name='analyze'),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
