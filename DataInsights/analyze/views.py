@@ -5,6 +5,26 @@ from django.contrib import messages
 import pandas as pd
 import os
 
+def analyze_file(request):
+    """Vue pour traiter le formulaire et afficher les résultats"""
+    form = UploadFileForm()
+    result = None
+
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_file = request.FILES['file']
+            result = process_file(uploaded_file)
+            if 'error' in result:
+                messages.error(request, result['error'])
+                result = None
+            else:
+                messages.success(request, f"Fichier '{uploaded_file.name}' analysé avec succès !")
+
+    return render(request, 'analyze.html', {'form': form, 'result': result})
+
+
+
 def process_file(uploaded_file):
     """Analyse le fichier et retourne un dictionnaire de résultats"""
     fs = FileSystemStorage(location='media/uploads/')
@@ -49,20 +69,4 @@ def process_file(uploaded_file):
             os.remove(file_path)
 
 
-def analyze_file(request):
-    """Vue pour traiter le formulaire et afficher les résultats"""
-    form = UploadFileForm()
-    result = None
 
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            uploaded_file = request.FILES['file']
-            result = process_file(uploaded_file)
-            if 'error' in result:
-                messages.error(request, result['error'])
-                result = None
-            else:
-                messages.success(request, f"Fichier '{uploaded_file.name}' analysé avec succès !")
-
-    return render(request, 'analyze.html', {'form': form, 'result': result})
