@@ -5,6 +5,7 @@ from django.contrib import messages
 import pandas as pd
 import os
 
+
 def analyze_file(request):
     """Vue pour traiter le formulaire et afficher les résultats"""
     form = UploadFileForm()
@@ -22,7 +23,6 @@ def analyze_file(request):
                 messages.success(request, f"Fichier '{uploaded_file.name}' analysé avec succès !")
 
     return render(request, 'analyze.html', {'form': form, 'result': result})
-
 
 
 def process_file(uploaded_file):
@@ -45,6 +45,11 @@ def process_file(uploaded_file):
         apercu = data.head(5)
         stats = data.describe().round(2)
 
+        stats_labels = stats.index.tolist()
+        stats_table = []
+        for label, row in zip(stats_labels, stats.values.tolist()):
+            stats_table.append({'label': label, 'row': row})
+
         resume = {
             'Nom_du_fichier': uploaded_file.name,
             'Nombre_de_lignes': lignes,
@@ -56,7 +61,7 @@ def process_file(uploaded_file):
             },
             'stats': {
                 'columns': list(stats.columns),
-                'values': stats.values.tolist()
+                'table': stats_table
             }
         }
         return resume
@@ -67,6 +72,3 @@ def process_file(uploaded_file):
     finally:
         if os.path.exists(file_path):
             os.remove(file_path)
-
-
-
